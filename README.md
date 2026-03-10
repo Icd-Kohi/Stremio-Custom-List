@@ -1,9 +1,11 @@
 # stremio-custom-lists
 
-Personal Stremio catalogs backed by user-managed custom lists.
+Custom Stremio catalogs backed by user-managed custom lists.
+Lists remains in `Explore` tab.
 
 ## Run
 
+Inside the project folder run:
 ```bash
 npm install
 npm run dev
@@ -19,9 +21,10 @@ The server runs on `http://localhost:7000` by default.
 ## Flow
 
 1. Open `http://localhost:7000`
-2. Create a token or paste an existing token
+2. Click `Create a token` or paste an existing token
 3. Create lists and add items by Stremio ID
-4. Open the generated manifest URL in Stremio
+4. Copy the generated addon manifest link
+5. Paste it inside Stremio addon tab
 
 ## Windows scripts
 
@@ -35,6 +38,15 @@ If Stremio is not installed in a default location, run the PowerShell variant di
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\windows\open-stremio-with-server.ps1 -StremioPath "C:\path\to\stremio.exe"
 ```
+## Screenshots 
+
+Explore -> Movies -> `List name` (Proximos 3 Meses):
+
+[![In App preview](./images/explorepreview.png)]
+
+Local server GUI:
+
+[![GUI preview](./images/gui.png)]
 
 ## API
 
@@ -48,4 +60,4 @@ powershell -ExecutionPolicy Bypass -File .\scripts\windows\open-stremio-with-ser
 - `POST /api/lists/:id/items`
 - `DELETE /api/lists/:id/items/:stremioId`
 
-Stremio endpoints remain under `/u/:token/...`.
+Stremio endpoints `/u/:token/...`.
