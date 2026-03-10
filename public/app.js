@@ -2,8 +2,8 @@ const translations = {
   "pt-BR": {
     documentTitle: "Listas Personalizadas",
     languageLabel: "Idioma",
-    eyebrow: "Companion para Stremio",
-    heroTitle: "Gerencie catálogos privados fora do Stremio.",
+    eyebrow: "para o Stremio",
+    heroTitle: "Gerencie listas no Stremio.",
     heroLead:
       "Crie listas com nome, adicione filmes ou séries por ID do Stremio e instale sua URL pessoal do addon no Stremio.",
     accessTitle: "Acesso",
@@ -59,8 +59,8 @@ const translations = {
   en: {
     documentTitle: "Custom Lists",
     languageLabel: "Language",
-    eyebrow: "Stremio companion",
-    heroTitle: "Manage private catalogs outside Stremio.",
+    eyebrow: "Stremio List Maker",
+    heroTitle: "List manager for Stremio.",
     heroLead:
       "Create named lists, add movies or series by Stremio ID, and install your personal addon URL in Stremio.",
     accessTitle: "Access",
