@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Listas Personalizadas</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div class="hero-top">
+          <label class="language-switcher" for="language-select">
+            <span>Language</span>
+            <select id="language-select">
+              <option value="pt-BR">Português (Brasil)</option>
+              <option value="en">English</option>
+            </select>
+          </label>
+        </div>
+        <p class="eyebrow">Companion para Stremio</p>
+        <h1>Gerencie catálogos privados fora do Stremio.</h1>
+        <p class="lede">
+          Crie listas com nome, adicione filmes ou séries por ID do Stremio e instale sua URL pessoal do addon no Stremio.
+        </p>
+      </section>
+
+      <section class="panel" id="auth-panel">
+        <div class="panel-head">
+          <div>
+            <h2>Acesso</h2>
+            <p>Crie um token anônimo ou reutilize um existente.</p>
+          </div>
+        </div>
+        <div class="auth-grid">
+          <button id="create-token" class="button button-primary">Criar token</button>
+          <form id="token-form" class="inline-form">
+            <input id="token-input" name="token" type="text" placeholder="Cole um token existente">
+            <button class="button" type="submit">Usar token</button>
+          </form>
+        </div>
+        <div id="latest-token" class="latest-used hidden"></div>
+        <div id="session" class="session hidden">
+          <label for="active-token">Token ativo</label>
+          <input id="active-token" readonly>
+          <label for="install-url">URL de instalação</label>
+          <div class="install-row">
+            <input id="install-url" readonly>
+            <a id="install-link" class="button button-primary" target="_blank" rel="noreferrer">Abrir manifest</a>
+          </div>
+          <p class="notice">
+            Ao criar uma nova lista, reinstale ou atualize o addon no Stremio para que um novo catálogo apareça.
+          </p>
+        </div>
+      </section>
+
+      <section class="content-grid">
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Suas listas</h2>
+              <p>Crie coleções como Favoritos, Ação ou Ver depois.</p>
+            </div>
+          </div>
+          <form id="create-list-form" class="stack-form hidden">
+            <input name="name" type="text" placeholder="Nome da lista" maxlength="80" required>
+            <select name="type">
+              <option value="both">Filmes + séries</option>
+              <option value="movie">Somente filmes</option>
+              <option value="series">Somente séries</option>
+            </select>
+            <button class="button button-primary" type="submit">Criar lista</button>
+          </form>
+          <div id="latest-used" class="latest-used hidden"></div>
+          <div id="list-empty" class="empty-state">Conecte-se com um token para gerenciar listas.</div>
+          <div id="lists" class="lists"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Lista selecionada</h2>
+              <p>Edite a lista e adicione ou remova itens por ID do Stremio.</p>
+            </div>
+          </div>
+          <div id="detail-empty" class="empty-state">Selecione uma lista para gerenciar os itens.</div>
+          <section id="detail" class="detail hidden">
+            <div class="detail-toolbar">
+              <button id="toggle-edit-list" class="button" type="button">Editar lista</button>
+              <button id="delete-list" class="button button-danger" type="button">Excluir lista</button>
+            </div>
+
+            <form id="rename-list-form" class="stack-form hidden">
+              <input name="name" type="text" placeholder="Nome da lista" maxlength="80" required>
+              <select name="type">
+                <option value="both">Filmes + séries</option>
+                <option value="movie">Somente filmes</option>
+                <option value="series">Somente séries</option>
+              </select>
+              <div class="row-actions">
+                <button class="button button-primary" type="submit">Salvar lista</button>
+              </div>
+            </form>
+
+            <form id="add-item-form" class="stack-form">
+              <label for="item-id-input">Adicionar itens</label>
+              <input id="item-id-input" name="stremioId" type="text" placeholder="ID do Stremio, ex: tt0133093 ou ID de série" required>
+              <select name="type">
+                <option value="movie">Filme</option>
+                <option value="series">Série</option>
+              </select>
+              <button class="button" type="submit">Adicionar item</button>
+            </form>
+
+            <div id="items" class="items"></div>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <div id="toast" class="toast hidden"></div>
+    <script type="module" src="/app.js"></script>
+  </body>
+  </html>
