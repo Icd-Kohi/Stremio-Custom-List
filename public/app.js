@@ -3,7 +3,7 @@ const translations = {
     documentTitle: "Listas Personalizadas",
     languageLabel: "Idioma",
     eyebrow: "para o Stremio",
-    heroTitle: "Gerencie listas no Stremio.",
+    heroTitle: "",
     heroLead:
       "Crie listas com nome, adicione filmes ou séries por ID do Stremio e instale sua URL pessoal do addon no Stremio.",
     accessTitle: "Acesso",
@@ -60,7 +60,7 @@ const translations = {
     documentTitle: "Custom Lists",
     languageLabel: "Language",
     eyebrow: "Stremio List Maker",
-    heroTitle: "List manager for Stremio.",
+    heroTitle: "",
     heroLead:
       "Create named lists, add movies or series by Stremio ID, and install your personal addon URL in Stremio.",
     accessTitle: "Access",
