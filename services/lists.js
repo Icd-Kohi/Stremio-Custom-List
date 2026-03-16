@@ -14,7 +14,18 @@ const getUserListStatement = db.prepare(`
 `);
 
 const getListItemsStatement = db.prepare(`
-  SELECT list_id, stremio_id, item_name, type, added_at
+  SELECT
+    list_id,
+    stremio_id,
+    item_name,
+    type,
+    poster,
+    background,
+    logo,
+    description,
+    release_info,
+    genres_json,
+    added_at
   FROM list_items
   WHERE list_id = ?
   ORDER BY added_at DESC
@@ -43,11 +54,29 @@ const deleteListItemsStatement = db.prepare(`
 `);
 
 const upsertItemStatement = db.prepare(`
-  INSERT INTO list_items(list_id, stremio_id, item_name, type, added_at)
-  VALUES (?, ?, ?, ?, ?)
+  INSERT INTO list_items(
+    list_id,
+    stremio_id,
+    item_name,
+    type,
+    poster,
+    background,
+    logo,
+    description,
+    release_info,
+    genres_json,
+    added_at
+  )
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   ON CONFLICT(list_id, stremio_id) DO UPDATE SET
     item_name = excluded.item_name,
     type = excluded.type,
+    poster = excluded.poster,
+    background = excluded.background,
+    logo = excluded.logo,
+    description = excluded.description,
+    release_info = excluded.release_info,
+    genres_json = excluded.genres_json,
     added_at = excluded.added_at
 `);
 
@@ -59,6 +88,26 @@ const deleteItemStatement = db.prepare(`
 export const listTypes = new Set(["movie", "series", "both"]);
 export const itemTypes = new Set(["movie", "series"]);
 
+function parseGenres(rawValue) {
+  if (typeof rawValue !== "string" || !rawValue) {
+    return [];
+  }
+
+  try {
+    const parsed = JSON.parse(rawValue);
+    return Array.isArray(parsed) ? parsed.filter((genre) => typeof genre === "string" && genre) : [];
+  } catch {
+    return [];
+  }
+}
+
+function mapListItem(row) {
+  return {
+    ...row,
+    genres: parseGenres(row.genres_json)
+  };
+}
+
 export function getListsForUser(userId) {
   return getUserListsStatement.all(userId);
 }
@@ -68,7 +117,7 @@ export function getListForUser(listId, userId) {
 }
 
 export function getItemsForList(listId, type) {
-  const items = getListItemsStatement.all(listId);
+  const items = getListItemsStatement.all(listId).map(mapListItem);
   if (!type) {
     return items;
   }
@@ -100,8 +149,20 @@ export function deleteList(listId, userId) {
   return removeList(listId, userId);
 }
 
-export function addItemToList(listId, stremioId, itemName, type) {
-  upsertItemStatement.run(listId, stremioId, itemName, type, Date.now());
+export function addItemToList(listId, stremioId, metadata, type) {
+  upsertItemStatement.run(
+    listId,
+    stremioId,
+    metadata.itemName,
+    type,
+    metadata.poster || "",
+    metadata.background || "",
+    metadata.logo || "",
+    metadata.description || "",
+    metadata.releaseInfo || "",
+    JSON.stringify(Array.isArray(metadata.genres) ? metadata.genres : []),
+    Date.now()
+  );
 }
 
 export function removeItemFromList(listId, stremioId) {

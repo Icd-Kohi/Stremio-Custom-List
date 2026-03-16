@@ -147,13 +147,19 @@ router.post("/lists/:id/items", async (req, res) => {
   }
 
   const metadata = await resolveItemMetadata(stremioId, type);
-  addItemToList(listId, stremioId, metadata.itemName, type);
+  addItemToList(listId, stremioId, metadata, type);
   res.status(201).json({
     item: {
       list_id: listId,
       stremio_id: stremioId,
       item_name: metadata.itemName,
-      type
+      type,
+      poster: metadata.poster,
+      background: metadata.background,
+      logo: metadata.logo,
+      description: metadata.description,
+      release_info: metadata.releaseInfo,
+      genres: metadata.genres
     }
   });
 });

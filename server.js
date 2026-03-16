@@ -1,8 +1,13 @@
 import { createApp } from "./app.js";
+//const http = require('node:http');
+import * as http from 'node:http';
 // CHANGE THE PORT IF YOU WANT
 const app = createApp();
-const port = Number.parseInt(process.env.PORT || "7000", 10);
+const port = 8000;
+const ipv4 = 'localhost';
 
-app.listen(port, () => {
-  console.log(`Addon server on http://localhost:${port}`);
+var server = http.createServer(app);
+
+server.listen(port, ipv4, () => {
+  console.log(`Addon server on http://${ipv4}:${port}`);
 });

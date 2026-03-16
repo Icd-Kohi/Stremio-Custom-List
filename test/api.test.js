@@ -83,6 +83,7 @@ test("list CRUD, item CRUD, and manifest work", { concurrency: false }, async ()
     assert.equal(items.json.items.length, 1);
     assert.equal(items.json.items[0].stremio_id, "tt0133093");
     assert.equal(items.json.items[0].item_name, "tt0133093");
+    assert.equal(items.json.items[0].poster, "https://images.metahub.space/poster/medium/tt0133093/img");
 
     const manifest = await jsonFetch(`${ctx.baseUrl}/u/${token}/manifest.json`);
     assert.equal(manifest.response.status, 200);
@@ -92,6 +93,8 @@ test("list CRUD, item CRUD, and manifest work", { concurrency: false }, async ()
     const catalog = await jsonFetch(`${ctx.baseUrl}/u/${token}/catalog/movie/list_${listId}.json`);
     assert.equal(catalog.json.metas.length, 1);
     assert.equal(catalog.json.metas[0].id, "tt0133093");
+    assert.equal(catalog.json.metas[0].poster, "https://images.metahub.space/poster/medium/tt0133093/img");
+    assert.equal(catalog.json.metas[0].background, "https://images.metahub.space/background/medium/tt0133093/img");
   } finally {
     await ctx.close();
   }

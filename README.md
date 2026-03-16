@@ -2,6 +2,7 @@
 
 Custom Stremio catalogs backed by user-managed custom lists.
 Lists remains in `Explore` tab.
+Catalog items reuse Cinemeta metadata so posters and other preview fields can show inside Stremio.
 
 ## Run
 
