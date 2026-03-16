@@ -12,12 +12,22 @@ npm install
 npm run dev
 ```
 
-The server runs on `http://localhost:7000` by default.
+The server listens on `0.0.0.0:7000` by default, so other devices on the same network can reach it with `http://<your-lan-ip>:7000`.
+On the same machine you can still use `http://localhost:7000`.
 
 ## Environment
 
 - `PORT`: HTTP port, default `7000`
+- `HOST`: Bind address, default `0.0.0.0`
 - `DB_PATH`: SQLite file path, default `data.sqlite`
+
+You can also override the bind address from the CLI:
+
+```bash
+npm run dev -- --host
+npm run dev -- --host=192.168.1.50
+npm run dev -- --port=8000
+```
 
 ## Flow
 
