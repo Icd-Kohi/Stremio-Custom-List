@@ -158,10 +158,11 @@ function t(key) {
 function showToast(message, isError = false) {
   nodes.toast.textContent = message;
   nodes.toast.classList.remove("hidden");
-  nodes.toast.style.background = isError ? "rgba(177, 69, 49, 0.96)" : "rgba(22, 34, 24, 0.9)";
+  nodes.toast.classList.toggle("toast-error", isError);
   window.clearTimeout(showToast.timer);
   showToast.timer = window.setTimeout(() => {
     nodes.toast.classList.add("hidden");
+    nodes.toast.classList.remove("toast-error");
   }, 2600);
 }
 
